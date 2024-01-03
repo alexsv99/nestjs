@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  # app service for your backend
+  app:
+    container_name: 'nest_back'
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - .:/usr/src/app
+    environment:
+      DATABASE_NAME: # DATABASE_NAME
+      DATABASE_USER: # DATABASE_USER
+      DATABASE_PASS: # DATABASE_PASS
+      DATABASE_URI: # DATABASE_URI, example: mongodb://database:27017
+    command: npm run start:dev
+    ports:
+      - '3030:3030'
+    restart: always
+    depends_on:
+      - mongo
+
+  # start the mongodb service as container
+  mongo:
+    image: mongo:6.0
+    container_name: 'nest_mongo'
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_DATABASE=${DATABASE_NAME}
+      - MONGO_INITDB_ROOT_USERNAME=${DATABASE_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${DATABASE_PASS}
