@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Query,
   Post,
   Body,
   Patch,
@@ -20,14 +21,19 @@ export class UserController {
     return this.userService.create(createUserDto)
   }
 
-  @Get()
+  @Get('all')
   findAll() {
     return this.userService.findAll()
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(id)
+  findById(@Param('id') id: string) {
+    return this.userService.findById(id)
+  }
+
+  @Get()
+  findByEmail(@Query('email') email: string) {
+    return this.userService.findByEmail(email)
   }
 
   @Patch(':id')
