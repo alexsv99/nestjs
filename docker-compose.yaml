@@ -4,11 +4,11 @@ services:
   app:
     container_name: 'nest_back'
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
       target: development
     volumes:
-      - .:/usr/src/app
+      - ./backend/:/usr/src/app
     environment:
       DATABASE_NAME: # DATABASE_NAME
       DATABASE_USER: # DATABASE_USER
